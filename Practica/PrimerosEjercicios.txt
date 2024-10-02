@@ -1,0 +1,44 @@
+-- 2.
+-- SELECT * FROM estudiantes
+
+-- 3.
+-- SELECT idasignatura, nombre
+-- FROM asignaturas
+
+-- 4.
+-- SELECT *
+-- from asignaturas
+-- WHERE creditos > 3
+
+-- 5.
+-- SELECT nombre, apellido
+-- from estudiantes
+-- where edad > 21
+
+-- 6.
+-- SELECT COUNT(LOWER(nombre) = 'martinez') as numMArtinez
+-- from estudiantes
+
+-- 7.
+-- SELECT nombre
+--from asignaturas
+
+-- 8.
+--SELECT UPPER(nombre) as UpperNombre, UPPER (correoelectronico) as UpperCorreo
+--from estudiantes
+
+-- 9.
+SELECT *
+from matriculas
+WHERE 
+
+-- 12. 
+
+-- SELECT LOWER(TRIM(correoelectronico)) as correosminus
+-- from estudiantes
+
+-- 13.
+
+--SELECT *
+--from estudiantes
+--where correoelectronico like '%correo.com'

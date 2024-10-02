@@ -1,0 +1,78 @@
+Cliente:
+	1ºNombre
+	2ºTelefono
+	3ºDNI
+	4ºDirección
+	5ºCorreo electronico
+	6ºCódigo postal
+	7ºFecha de nacimiento
+
+Ejemplos:	
+	
+	Cliente1:
+		-Pedro
+		-683 64 67 21
+		-68553020C
+		-Calle Salvador Dali
+		-pedro@gmail.com
+		-28933
+		-15/01/2001//
+
+	Cliente2:
+		-Juan
+		-603 32 67 21
+		-20339482V
+		-Calle Mayor
+		-juan@gmail.com
+		-30492
+		-12/02/2002
+		
+	Cliente3:
+		-Ana
+		-642 67 32 12
+		-98223402R
+		-Calle Menor
+		-ana@gmail.com
+		-20645
+		-11/03/2002
+
+	Cliente4:
+		-Laura
+		-695 39 12 45
+		-54334869L
+		-Gran Via
+		-laura@gmail.com
+		-28013
+		-05/05/1999
+		
+	Cliente5:
+		-David
+		-637 43 67 21
+		-98779065A
+		-Calle Antonio Hernandez
+		-david@gmail.com
+		-23664
+		-01/01/1980
+		
+Entidad-Relación:
+	-Entidad: representa lo que quiero modelar, en este caso un cliente, se representa "cliente" rodeado con un cuadrado, "dirección"
+	
+	
+Estudiante:
+	1ºNombre
+	2ºPrimer apellido
+	3ºSegundo apellido
+	4ºTelefono
+	5ºDNI
+	6ºNacionalidad
+	7ºPaís de residencia
+	8ºCalle donde reside
+	9ºCódigo Postal
+	10ºFecha de Nacimiento
+	11ºCuenta Bancaria
+	12ºCurso acutal
+	13ºNúmero de asignaturas matriculadas
+	14ºAños en el centro
+	15ºCorreo electrónico
+	16ºGénero
+	17ºBeca o ayudas

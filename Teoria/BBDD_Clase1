@@ -1,0 +1,8 @@
+Problemas de guardar datos en un fichero...
+
+	1º Integridad de los datos.... metatados
+	2º Unidad (usar identificadores)
+	3º Acceso (queremos centralizado/descentralizado)
+	4º Seguridad/Privacidad (vistas/registro de acceso/cifrado)
+	5º Aislamiento de datos (el dato mas aislado mejor para poder controlarlo mejor) vs redundancia de datos (buena para seguridad de datos y evitar bugs, dni / mala para la integridad)
+	6º Atomicidad ( o algo se haced entero o no se hace,la transferencia entera)

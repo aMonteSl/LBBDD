@@ -1,0 +1,45 @@
+-- ALTER TABLE item 
+-- ADD COLUMN brand VARCHAR(64) NOT NULL DEFAULT 'Unknown'
+
+-- select * from item
+
+-- update item 
+-- Set brand = 'Hasnbro'
+-- where item_id = 2
+
+-- SELECT * from item
+
+-----------------------------------------------------------------------------
+
+-- SELECT cost_price * 100 as por100
+-- from item
+
+--SELECT i.cost_price , ord.quantity, i.cost_price + ord.quantity as nuevacolum
+--from item as i, orderline as ord
+--where i.cost_price != 1.99
+--LIMIT 6
+
+
+--SELECT i.description, LOWER(i.description) as lower
+--from item as i
+--where i.description LIKE '%o%'
+--limit 10
+
+-- SELECT count(item_id)
+-- from item
+
+--SELECT SUM(ord.quantity)
+--from orderline as ord
+
+--SELECT *
+--from item
+--order by description desc
+
+--SELECT item_id, cost_price
+--from item
+--group by item_id
+
+-------------------------------------------------------------
+
+--alter table item
+--drop column brand
