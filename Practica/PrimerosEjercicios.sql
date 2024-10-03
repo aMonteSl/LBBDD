@@ -139,3 +139,146 @@ having COUNT(matricula) > 1
 select matricula, idasignatura, AGE(CURRENT_DATE, fechamatriculacion) as tiempo
 from matriculas
 */
+
+
+--------------------------------------------------------------------------------
+
+-- 2.
+/*
+SELECT *
+FROM item
+*/
+
+-- 3.
+/*
+SELECT town, lname
+FROM customer
+*/
+
+-- 4.
+/*
+SELECT town, lname AS lastname
+FROM customer
+*/
+
+-- 5.
+/*
+SELECT town, lname AS lastname
+FROM customer
+ORDER BY town
+*/
+
+-- 6.
+/*
+SELECT town, lname AS lastname
+FROM customer
+ORDER BY town DESC
+*/
+
+-- 7.
+/*
+SELECT town, lname AS lastname
+FROM customer
+GROUP by town, lname
+HAVING (COUNT(town) = 1 OR COUNT(lname) = 1)
+ORDER BY town DESC
+*/
+
+-- 8.
+/*
+SELECT description, cost_price * 100 AS costcents
+FROM item
+*/
+
+-- 9.
+/*
+SELECT town, lname, fname
+FROM CUSTOMER
+WHERE town = 'Bingham'
+*/
+
+-- 10.
+/*
+SELECT town, lname, fname
+FROM CUSTOMER
+WHERE (town = 'Bingham' or town = 'Nicetown') and title = 'Mr'
+*/
+
+-- 11.
+/*
+SELECT customer_id, town, lname
+FROM CUSTOMER
+WHERE customer_id BETWEEN 5 AND 9
+*/
+
+-- 12.
+/*
+SELECT fname, lname
+FROM CUSTOMER
+WHERE fname LIKE 'D%'
+*/
+
+-- 13.
+/*
+SELECT fname, lname
+FROM CUSTOMER
+WHERE fname LIKE '_a%'
+*/
+
+-- 14.
+/*
+SELECT fname, lname
+FROM CUSTOMER
+WHERE lname LIKE '%o%'
+*/
+
+-- 15.
+/*
+SELECT * 
+FROM item
+WHERE cost_price > 7
+LIMIT 3
+*/
+
+-- 16.
+/*
+SELECT *
+FROM customer
+WHERE phone IS NULL
+*/
+
+-- 17.
+/*
+SELECT customer_id as onlyoneorder
+FROM orderinfo
+GROUP BY customer_id
+*/
+
+-- 18.
+/*
+SELECT customer_id as onlyoneorder
+FROM orderinfo
+GROUP BY customer_id
+HAVING COUNT(customer_id) = '1'
+*/
+
+-- 19.
+/*
+SELECT ROUND(533*(sell_price - cost_price), 1) as beneficio
+FROM item
+*/
+
+-- 20.
+-- PREGUNTAR SI SE PUEDE HACER UN MAX(SELL_PRICE)
+/*
+SELECT description, sell_price, width_bucket(sell_price, 0, 25.32, 5) AS gama_producto
+FROM item
+*/
+
+-- 21.
+/*
+SELECT customer_id, COUNT(*)
+FROM orderinfo
+GROUP BY customer_id
+*/
+
