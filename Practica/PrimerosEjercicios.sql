@@ -90,7 +90,11 @@ HAVING (COUNT(edad) = '1')
 */
 
 -- 18.
-
+/*
+SELECT edad, COUNT(DISTINCT(edad))
+from estudiantes
+group by edad
+*/
 
 -- 19.
 /*
@@ -138,6 +142,41 @@ having COUNT(matricula) > 1
 /*
 select matricula, idasignatura, AGE(CURRENT_DATE, fechamatriculacion) as tiempo
 from matriculas
+*/
+
+/*
+SELECT matricula, EXTRACT(MONTH FROM fechamatriculacion) AS AñoMatriculacion
+FROM matriculas
+*/
+
+-- Mostrar cuantas matriculas se han realizado el mes de enero
+-- SELECT COUNT (fechamatriculacion) as matriculasEnero
+-- FROM matriculas
+-- WHERE EXTRACT(MONTH FROM fechamatriculacion) = 1;
+
+/*
+SELECT COUNT(*), idasignatura
+FROM Matriculas
+group by idasignatura
+*/
+
+/*
+SELECT idasignatura, avg(NotaNumerica) as Nota_media
+from matriculas
+group by idasignatura
+*/
+
+/*
+SELECT customer_id, COUNT(*) as NumeroPedidos
+from orderinfo
+group by customer_id
+*/
+
+/*
+CUantos productos diferentes fueron pedidos en cada orden
+SELECT orderinfo_id, COUNT (DISTINCT(item_id)) as Productosdistintos
+FROM orderline
+GROUP BY orderinfo_id;
 */
 
 
@@ -264,8 +303,8 @@ HAVING COUNT(customer_id) = '1'
 
 -- 19.
 /*
-SELECT ROUND(533*(sell_price - cost_price), 1) as beneficio
-FROM item
+SELECT ROUND(SUM((sell_price - cost_price)*553),1) as beneficio
+from item;
 */
 
 -- 20.
