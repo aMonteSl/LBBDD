@@ -16,12 +16,13 @@
 -- where edad > 21
 
 -- 6.
--- SELECT COUNT(LOWER(nombre) = 'martinez') as numMArtinez
---from estudiantes
+-- SELECT COUNT(*)
+-- FROM estudiantes
+-- WHERE nombre like 'Martinez' or apellido like 'Martinez'
 
 -- 7.
--- SELECT nombre
---from asignaturas
+-- SELECT 'Asignaturas' AS Encabezado, nombre
+-- FROM asignaturas;
 
 -- 8.
 --SELECT UPPER(nombre) as UpperNombre, UPPER (correoelectronico) as UpperCorreo
@@ -59,7 +60,7 @@ LIMIT 1
 
 --SELECT *
 --from estudiantes
---where correoelectronico like '%correo.com'
+--where correoelectronico like '%correo.com%'
 
 -- 14.
 /*
@@ -83,10 +84,8 @@ where UPPER(nombre) like 'A%' or UPPER(nombre) like '%L'
 
 -- 17.
 /*
-SELECT edad
-FROM estudiantes
-GROUP BY edad
-HAVING (COUNT(edad) = '1')
+SELECT COUNT(DISTINCT(edad)) as edadesDistintas
+from estudiantes
 */
 
 -- 18.
