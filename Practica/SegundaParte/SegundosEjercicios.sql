@@ -1,4 +1,5 @@
 -- Ejercicios consultas para BPsimple.
+
 -- 1. Listar nombre y apellido de los clientes junto con la fecha de las órdenes realizadas.
 SELECT customer.fname, customer.lname, orderinfo.date_placed
 FROM customer
@@ -29,6 +30,7 @@ INNER JOIN barcode ON item.item_id = barcode.item_id
 
 
 -- Ejercicios consultas para BPUniversidad.
+
 -- 1. Listar el nombre completo (Nombre y Apellido) de todos los estudiantes y sus asignaturas matriculadas
 SELECT estudiantes.nombre, estudiantes.apellido, asignaturas.nombre
 FROM estudiantes
@@ -66,3 +68,33 @@ FROM film
 INNER JOIN film_actor ON film.film_id = film_actor.film_id
 INNER JOIN actor ON film_actor.actor_id = actor.actor_id
 WHERE actor.last_name = 'Keitel';
+
+-- 22. Listar los actores que han trabajado en películas de categorías diferentes y mostrar el nombre de
+--la película junto con el nombre del actor.
+SELECT actor.first_name, actor.last_name, film.title, category.name
+FROM actor
+INNER JOIN film_actor ON actor.actor_id = film_actor.actor_id
+INNER JOIN film ON film_actor.film_id = film.film_id
+INNER JOIN film_category ON film.film_id = film_category.film_id
+INNER JOIN category ON film_category.category_id = category.category_id
+WHERE film_category.category_id IN (
+	SELECT DISTINCT category_id
+	FROM film_category
+	GROUP BY category_id
+	HAVING COUNT(DISTINCT film_id) > 1
+)
+
+-- 31. Seleccionar el identicador de película y título de las 10 películas de habla inglesa con mayor
+-- número de actores en el reparto
+SELECT fa.film_id, pelis_ingles.title, COUNT(fa.actor_id) as n_actores
+FROM film_actor as fa
+INNER JOIN (
+	SELECT film_id, title
+	FROM film
+	INNER JOIN language ON film.language_id = language.language_id
+	WHERE language.name = 'English'
+) AS pelis_ingles
+ON fa.film_id = pelis_ingles.film_id
+GROUP BY fa.film_id, pelis_ingles.title
+ORDER BY n_actores DESC
+LIMIT 10
