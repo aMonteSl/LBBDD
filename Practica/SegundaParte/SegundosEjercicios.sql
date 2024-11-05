@@ -98,3 +98,12 @@ ON fa.film_id = pelis_ingles.film_id
 GROUP BY fa.film_id, pelis_ingles.title
 ORDER BY n_actores DESC
 LIMIT 10
+-- O de forma más sencilla
+SELECT film.film_id, film.title, COUNT(film_actor.actor_id) as n_actores
+FROM film
+INNER JOIN film_actor ON film.film_id = film_actor.film_id
+INNER JOIN language ON film.language_id = language.language_id
+WHERE language.name = 'English'
+GROUP BY film.film_id, film.title
+ORDER BY n_actores DESC
+LIMIT 10
