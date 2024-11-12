@@ -24,7 +24,30 @@ SELECT item.description, barcode.barcode_ean
 FROM item
 INNER JOIN barcode ON item.item_id = barcode.item_id
 
+-- 26. Obtener los datos de los clientes y de los pedidos que han realizado, en una sola tabla (empleando
+-- NATURAL JOIN).
+SELECT customer.*, orderinfo.*
+FROM customer
+NATURAL JOIN orderinfo
 
+-- 27.Muestra los productos (descripción) que sólo se han vendido en un pedido junto a la orden de
+-- pedido en la que han sido comprados
+SELECT item.description, orderline.orderinfo_id
+FROM item
+INNER JOIN orderline ON item.item_id = orderline.item_id
+WHERE item.item_id IN (
+	SELECT orderline.item_id
+	FROM orderline
+	GROUP BY orderline.item_id
+	HAVING COUNT(*) = 1
+)
+ORDER BY item.description DESC
+-- Otra forma de hacerlo sin subconsulta
+SELECT item.description, orderline.orderinfo_id
+FROM item
+INNER JOIN orderline ON item.item_id = orderline.item_id
+GROUP BY item.item_id
+HAVING COUNT(*) = 1
 
 
 
@@ -59,6 +82,14 @@ FROM estudiantes
 INNER JOIN matriculas ON matriculas.matricula = estudiantes.matricula
 INNER JOIN asignaturas ON asignaturas.idasignatura = matriculas.idasignatura
 
+-- 17. Mostrar el nombre de las asignaturas y el número de estudiantes matriculados, excluyendo asig-
+--naturas sin estudiantes
+SELECT asignaturas.nombre, COUNT(matriculas.matricula) AS NumeroEstudiantes
+FROM asignaturas
+LEFT JOIN matriculas ON matriculas.idasignatura = asignaturas.idasignatura
+GROUP BY asignaturas.nombre
+HAVING COUNT(matriculas.matricula) > 0
+
 
 
 -- Ejecicios consultas para DVDRental.
@@ -84,6 +115,18 @@ WHERE film_category.category_id IN (
 	HAVING COUNT(DISTINCT film_id) > 1
 )
 
+-- 30.  Obtén la lista de 5 países de origen en los que residen el número de clientes que más han pagado
+-- (en total, por país) por el alquiler de películas
+SELECT SUM(pa.amount), cou.country
+FROM payment as pa
+JOIN customer as cu ON pa.customer_id = cu.customer_id
+JOIN address as ad ON cu.address_id = ad.address_id
+JOIN city as ci ON ad.city_id = ci.city_id
+JOIN country as cou ON ci.country_id = cou.country_id
+GROUP BY cou.country
+ORDER BY SUM(pa.amount) desc
+LIMIT 5
+
 -- 31. Seleccionar el identicador de película y título de las 10 películas de habla inglesa con mayor
 -- número de actores en el reparto
 SELECT fa.film_id, pelis_ingles.title, COUNT(fa.actor_id) as n_actores
@@ -107,3 +150,22 @@ WHERE language.name = 'English'
 GROUP BY film.film_id, film.title
 ORDER BY n_actores DESC
 LIMIT 10
+
+
+-- 35. Muestra el valor máximo y el valor mínimo de dinero abonado de entre los alquileres que han
+-- sido gestionados por el empleado Jon Stephens
+SELECT MAX(amount), MIN(amount), staff.first_name, staff.last_name
+FROM payment
+INNER JOIN staff on payment.staff_id = staff.staff_id
+WHERE staff.first_name = 'Jon' AND staff.last_name = 'Stephens'
+GROUP BY staff.first_name, staff.last_name
+-- Otra forma de hacerlo
+SELECT MAX(amount), MIN(amount)
+FROM payment
+JOIN (
+	SELECT *
+	FROM staff
+	WHERE staff.first_name = 'Jon' AND staff.last_name = 'Stephens'
+
+) AS staff_jon
+ON payment.staff_id = staff_jon.staff_id
