@@ -453,6 +453,7 @@ GROUP BY asg.semestre;
 -- ordenado por cursos
 
 
+
 -- 20. Encuentra la cantidad de asignaturas por departamento. Muestra el nombre del departamento y
 -- la cantidad de asignaturas que ofrece.
 SELECT prf.departamento, COUNT(*) AS NumAsignaturas
