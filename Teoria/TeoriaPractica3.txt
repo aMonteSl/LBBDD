@@ -1,0 +1,7 @@
+CREATE VIEW EstudianteMediaNotas AS 
+SELECT e.Matricula, e.Nombre, e.Apellido, AVG(m.NotaNumerica)
+FROM Estudiantes as e
+JOIN Matriculas as m ON e.matricula = m.matricula
+GROUP BY e.matricula, e.nombre, e.apellido;
+
+SELECT * FROM EstudianteMediaNotas
