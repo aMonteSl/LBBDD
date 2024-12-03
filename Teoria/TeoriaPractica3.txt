@@ -5,3 +5,43 @@ JOIN Matriculas as m ON e.matricula = m.matricula
 GROUP BY e.matricula, e.nombre, e.apellido;
 
 SELECT * FROM EstudianteMediaNotas
+
+-- Tabla base pra los medios 
+CREATE TABLE media (
+	media_id SERIAL PRIMARY KEY,
+	title VARCHAR(255),
+	release_year INT
+);
+
+CREATE TABLE dvd(
+	region_code INT
+
+) INHERITS (media);
+
+CREATE TABLE blue_ray (
+	resolution VARCHAR(50)
+) INHERITS (media);
+
+INSERT INTO dvd (title, release_year, region_code)
+VALUES('Matrix', '1999', 1);
+
+
+INSERT INTO blue_ray (title, release_year, resolution)
+VALUES('Avatar', '2010', '4K');
+
+CREATE ROLE profesor;
+CREATE ROLE estudiante;
+
+-- Permisos
+GRANT SELECT, INSERT, UPDATE ON matriculas TO profesor;
+GRANT SELECT ON matriculas TO estudiante;
+
+-- Usuarios
+CREATE USER david_profesor WITH PASSWORD 'profesor123';
+CREATE USER alberto_estudiante WITH PASSWORD 'estudiante123';
+
+-- Dar roles
+GRANT profesor TO david_profesor;
+GRANT estudiante TO alberto_estudiante;
+
+
