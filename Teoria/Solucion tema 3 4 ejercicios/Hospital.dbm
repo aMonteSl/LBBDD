@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="12"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="Hospital" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="Medico" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="114" y="302"/>
+	<column name="ID_Medico" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Nombre_medico" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Especialidad">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Telefono´" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="ID_Medico_PK" type="pk-constr" table="public.&quot;Medico&quot;">
+		<columns names="ID_Medico" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Enfermero" layers="0" collapse-mode="1" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="106" y="725"/>
+	<column name="ID_Enfermero" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Nombre" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Depatamento">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Fecha_Contratacion">
+		<type name="date" length="0"/>
+	</column>
+	<column name="Antigüedad" default-value="Fecha_Contratacion - CURRENT_DATE´" generated="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="ID_enfermero_pk" type="pk-constr" table="public.&quot;Enfermero&quot;">
+		<columns names="ID_Enfermero" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Receta" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="716" y="285"/>
+	<column name="ID_Receta" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Fecha_Prescripcion" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="ID_Receta_pk" type="pk-constr" table="public.&quot;Receta&quot;">
+		<columns names="ID_Receta" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="extiende" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#1ee172"
+	 src-table="public.&quot;Medico&quot;"
+	 dst-table="public.&quot;Receta&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<table name="MedicamentosReceta" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="699" y="616"/>
+	<column name="Medicamento" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+</table>
+
+<relationship name="Tiene" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#bc602e"
+	 src-table="public.&quot;Receta&quot;"
+	 dst-table="public.&quot;MedicamentosReceta&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+	<constraint name="Medicamentos_pk" type="pk-constr" table="public.&quot;MedicamentosReceta&quot;">
+		<columns names="Medicamento" ref-type="src-columns"/>
+	</constraint>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<table name="Paciente" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="708" y="15"/>
+	<column name="ID_Paciente" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Nombre_paciente" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Fecha_Nacimiento" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="Direccion" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="Telefono" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="Paciente_pk" type="pk-constr" table="public.&quot;Paciente&quot;">
+		<columns names="ID_Paciente" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Paciente_has_many_Receta" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#ba80bc"
+	 src-table="public.&quot;Paciente&quot;"
+	 dst-table="public.&quot;Receta&quot;"
+	 src-required="true" dst-required="false"/>
+
+<table name="Intervencion" layers="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1301" y="10"/>
+	<column name="ID_Intervencion" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Fecha" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="Descripcion" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Hora_Inicio" not-null="true">
+		<type name="time" length="0"/>
+	</column>
+	<column name="Hora_Final" not-null="true">
+		<type name="time" length="0"/>
+	</column>
+	<column name="Duracion" not-null="true" default-value="Hora_Final -Hora_Inicio">
+		<type name="time" length="0"/>
+	</column>
+	<constraint name="Intervencion_pk" type="pk-constr" table="public.&quot;Intervencion&quot;">
+		<columns names="ID_Intervencion" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Prueba" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1314" y="318"/>
+	<column name="ID_Registro" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Fecha" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="TipoPrueba" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Observaciones">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="Prueba_pk" type="pk-constr" table="public.&quot;Prueba&quot;">
+		<columns names="ID_Registro" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="ID_Paciente" index="4"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Paciente_fk" index="1"/>
+	</customidxs>
+</table>
+
+<table name="ResultadoPrueba" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1311" y="647"/>
+	<column name="Resultado" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+</table>
+
+<relationship name="Tienen" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#b72241"
+	 src-table="public.&quot;Prueba&quot;"
+	 dst-table="public.&quot;ResultadoPrueba&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+	<constraint name="ResultadoPrueba_pk" type="pk-constr" table="public.&quot;ResultadoPrueba&quot;">
+		<columns names="Resultado" ref-type="src-columns"/>
+	</constraint>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<relationship name="Paciente_has_many_Prueba" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#87a71b"
+	 src-table="public.&quot;Paciente&quot;"
+	 dst-table="public.&quot;Prueba&quot;"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="Paciente_has_many_Intervencion" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#7aa7f1"
+	 src-table="public.&quot;Paciente&quot;"
+	 dst-table="public.&quot;Intervencion&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<table name="Alergias" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="133" y="39"/>
+	<column name="Alergia" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+</table>
+
+<relationship name="padece" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#1b1c7c"
+	 src-table="public.&quot;Paciente&quot;"
+	 dst-table="public.&quot;Alergias&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+	<constraint name="Alergias_pk" type="pk-constr" table="public.&quot;Alergias&quot;">
+		<columns names="Alergia" ref-type="src-columns"/>
+	</constraint>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<table name="EnfermeroReceta" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<position x="99" y="459"/>
+	<column name="Dosis" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="Intrucciones">
+		<type name="varchar" length="255"/>
+	</column>
+</table>
+
+<relationship name="Administra" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.&quot;Enfermero&quot;"
+	 dst-table="public.&quot;EnfermeroReceta&quot;"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="Administrada" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.&quot;Receta&quot;"
+	 dst-table="public.&quot;EnfermeroReceta&quot;"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+</dbmodel>

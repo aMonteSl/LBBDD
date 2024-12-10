@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="80,0" last-zoom="1" max-obj-count="7"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="Universidad" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="Facultad" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment><![CDATA[Alamcena todas las facultades de la universidad]]></comment>
+	<position x="88" y="130"/>
+	<column name="ID_Facultad" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Nombre" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Direccion">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Municipio" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="ID_Facultad_pk" type="pk-constr" table="public.&quot;Facultad&quot;">
+		<columns names="ID_Facultad" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Grado" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="630" y="113"/>
+	<column name="Cod_Grado" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Nombre_Grado" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Creditos" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="Rama_Conocimiento">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="Cod_Grado_pk" type="pk-constr" table="public.&quot;Grado&quot;">
+		<columns names="Cod_Grado" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="ID_Facultad" index="4"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Facultad_fk" index="0"/>
+	</customidxs>
+</table>
+
+<relationship name="Oferta" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#db8528"
+	 src-table="public.&quot;Facultad&quot;"
+	 dst-table="public.&quot;Grado&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<table name="Alumno" layers="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1364" y="569"/>
+	<column name="Expediente" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Nombre_Alumno" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Apellido" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Direccion" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Fecha_Nacimiento" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="Expediente_pk" type="pk-constr" table="public.&quot;Alumno&quot;">
+		<columns names="Expediente" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="many_Grado_has_many_Alumno" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<position x="1313.5" y="128.5"/>
+</table>
+
+<relationship name="matricula" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.&quot;Grado&quot;"
+	 dst-table="public.&quot;many_Grado_has_many_Alumno&quot;"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="26.4857" y="3.93254"/>
+	</label>
+</relationship>
+
+<relationship name="matriculado" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.&quot;Alumno&quot;"
+	 dst-table="public.&quot;many_Grado_has_many_Alumno&quot;"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<table name="Habitacion" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="688" y="602"/>
+	<column name="N_Habitacion" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Planta" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="Telefono">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="N_Habitacion_pk" type="pk-constr" factor="100" table="public.&quot;Habitacion&quot;">
+		<columns names="N_Habitacion" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Asignacion" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#3744fb"
+	 src-table="public.&quot;Habitacion&quot;"
+	 dst-table="public.&quot;Alumno&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+	<column name="Fecha_Asginacion">
+		<type name="date" length="0"/>
+	</column>
+</relationship>
+
+<table name="Residencia" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="91" y="601"/>
+	<column name="ID_Residencia" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Direccion" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="CP" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="Telefono" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="email">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="ID_Residencia_pk" type="pk-constr" table="public.&quot;Residencia&quot;">
+		<columns names="ID_Residencia" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Pertenece" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#55b1a4"
+	 src-table="public.&quot;Residencia&quot;"
+	 dst-table="public.&quot;Habitacion&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+</dbmodel>

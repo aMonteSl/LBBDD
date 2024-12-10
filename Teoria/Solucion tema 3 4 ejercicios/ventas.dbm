@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="210,138" last-zoom="1" max-obj-count="10"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="VentaProductos" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="Cliente_Oro" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="69" y="224"/>
+	<column name="Descuento" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="Nivel" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+</table>
+
+<table name="Cliente_Estandar" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="74" y="535"/>
+</table>
+
+<table name="Pedidos" layers="0" collapse-mode="1" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="938" y="343"/>
+	<column name="ID_pedido" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Fecha_registro" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="Fecha_Entrega">
+		<type name="date" length="0"/>
+	</column>
+	<column name="Tiempo_Entrega" default-value="Fecha_Entrega - Fecha_Registro" generated="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="Estado" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="Pedido_pk" type="pk-constr" table="public.&quot;Pedidos&quot;">
+		<columns names="ID_pedido" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Cliente" layers="0" collapse-mode="1" max-obj-count="10" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="466" y="318"/>
+	<column name="ID_Cliente" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Calle" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="Numero" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="Portal">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="Piso">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Ciudad" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="CP" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="Saldo">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="Fecha_Registro" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="Cliente_pk" type="pk-constr" table="public.&quot;Cliente&quot;">
+		<columns names="ID_Cliente" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="ClienteEstandar" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#2c36d2"
+	 src-table="public.&quot;Cliente&quot;"
+	 dst-table="public.&quot;Cliente_Estandar&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="29.0571" y="4.89699"/>
+	</label>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<relationship name="ClienteOro" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#3136e2"
+	 src-table="public.&quot;Cliente&quot;"
+	 dst-table="public.&quot;Cliente_Oro&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<relationship name="Realiza" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#5ab071"
+	 src-table="public.&quot;Cliente&quot;"
+	 dst-table="public.&quot;Pedidos&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<table name="Pago" layers="0" collapse-mode="1" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="951" y="675"/>
+	<column name="N_Pago" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Fecha_pago" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="Cantidad" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="Estado" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="Pago_pk" type="pk-constr" table="public.&quot;Pago&quot;">
+		<columns names="N_Pago" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Asociado" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#6025e0"
+	 src-table="public.&quot;Pedidos&quot;"
+	 dst-table="public.&quot;Pago&quot;"
+	 src-required="true" dst-required="false"/>
+
+<table name="Articulo" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1610" y="705"/>
+	<column name="ID_articulo" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Descripcion" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="Articulo_pk" type="pk-constr" table="public.&quot;Articulo&quot;">
+		<columns names="ID_articulo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="PedidosArticulo" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<position x="1597" y="339.5"/>
+	<column name="Cantidad" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<relationship name="Incluye" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.&quot;Pedidos&quot;"
+	 dst-table="public.&quot;PedidosArticulo&quot;"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="Incluidos" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.&quot;Articulo&quot;"
+	 dst-table="public.&quot;PedidosArticulo&quot;"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<table name="Fabrica" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="929" y="939"/>
+	<column name="ID_Fabrica" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Direccion" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Telefono" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="Articulos_Totales" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="Fabrica_pk" type="pk-constr" table="public.&quot;Fabrica&quot;">
+		<columns names="ID_Fabrica" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="ArticuloFabrica" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<position x="1594.5" y="922.5"/>
+	<column name="Existencias" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<relationship name="Almacenados" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.&quot;Articulo&quot;"
+	 dst-table="public.&quot;ArticuloFabrica&quot;"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="Alamcena" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.&quot;Fabrica&quot;"
+	 dst-table="public.&quot;ArticuloFabrica&quot;"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+</dbmodel>

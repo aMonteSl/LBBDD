@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,138" last-zoom="1" max-obj-count="7"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="Movilidad" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="Empleado" layers="0" collapse-mode="2" max-obj-count="13" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="209" y="365"/>
+	<column name="DNI" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Nombre" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Apellido" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="Direccion" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="CP" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="Fecha_Entrada" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="Antiguedad" default-value="CURRENT_DATE - Fecha_Entrada" generated="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="Salario" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="Empleado_pk" type="pk-constr" table="public.&quot;Empleado&quot;">
+		<columns names="DNI" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="DNI1" index="8"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Empleado_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="Supervisa" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#cdaa1a"
+	 src-table="public.&quot;Empleado&quot;"
+	 dst-table="public.&quot;Empleado&quot;"
+	 src-required="true" dst-required="false">
+	<line>
+		<position x="550.509" y="467.883"/>
+	<position x="550.509" y="342"/>
+	<position x="421.339" y="342"/>
+	</line>
+</relationship>
+
+<table name="Telefono" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="31" y="793"/>
+	<column name="NumeroTelefono" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+
+	<customidxs object-type="column">
+		<object name="DNI" index="1"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Empleado_fk" index="0"/>
+	</customidxs>
+</table>
+
+<relationship name="Posee" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#ce42c0"
+	 src-table="public.&quot;Empleado&quot;"
+	 dst-table="public.&quot;Telefono&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+	<constraint name="Telefono_pk" type="pk-constr" table="public.&quot;Telefono&quot;">
+		<columns names="NumeroTelefono" ref-type="src-columns"/>
+	</constraint>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<table name="Emails" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="381" y="797"/>
+	<column name="DireccionCorreo" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+</table>
+
+<relationship name="PoseeCorreos" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#7871ae"
+	 src-table="public.&quot;Empleado&quot;"
+	 dst-table="public.&quot;Emails&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+	<constraint name="Emails_pk" type="pk-constr" table="public.&quot;Emails&quot;">
+		<columns names="DireccionCorreo" ref-type="src-columns"/>
+	</constraint>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<table name="Departamento" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="785" y="433"/>
+	<column name="Cod_departamento" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Nombre" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Edificio" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="Planta">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="Presupuesto" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="Departamento_pk" type="pk-constr" table="public.&quot;Departamento&quot;">
+		<columns names="Cod_departamento" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Pertenecer" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#dc531f"
+	 src-table="public.&quot;Departamento&quot;"
+	 dst-table="public.&quot;Empleado&quot;"
+	 src-required="true" dst-required="false">
+	<column name="Fecha_Entrada1">
+		<type name="date" length="0"/>
+	</column>
+</relationship>
+
+<table name="Proyecto" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1323" y="749"/>
+	<column name="Cod_Proyecto" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="Fecha_Inicio" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="Fecha_Final" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="Duracion" default-value="Fecha_Final - Fecha_Inicio" generated="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="Retraso" default-value="CURRENT_DATE - Fecha_Final" generated="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="Pais" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Ciudad" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="Presupuesto" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="Proyecto_pk" type="pk-constr" table="public.&quot;Proyecto&quot;">
+		<columns names="Cod_Proyecto" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="DepartamentoProyecto" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<position x="1273.5" y="425"/>
+	<column name="Fecha_Comienzo" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="Fecha_Fin">
+		<type name="date" length="0"/>
+	</column>
+</table>
+
+<relationship name="Ejecuta" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.&quot;Departamento&quot;"
+	 dst-table="public.&quot;DepartamentoProyecto&quot;"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+>
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="Ejecutado" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.&quot;Proyecto&quot;"
+	 dst-table="public.&quot;DepartamentoProyecto&quot;"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+</dbmodel>

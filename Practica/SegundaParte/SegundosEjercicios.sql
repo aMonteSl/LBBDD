@@ -453,7 +453,6 @@ GROUP BY asg.semestre;
 -- ordenado por cursos
 
 
-
 -- 20. Encuentra la cantidad de asignaturas por departamento. Muestra el nombre del departamento y
 -- la cantidad de asignaturas que ofrece.
 SELECT prf.departamento, COUNT(*) AS NumAsignaturas
@@ -585,11 +584,42 @@ WHERE EXTRACT(YEAR FROM mat.fechamatriculacion) = 2022
 
 -- Ejecicios consultas para DVDRental.
 -- 1. Listar todas las peliculas en las que el actor con el apellido 'Keitel' ha actuado
-SELECT film.title, film_actor.actor_id, actor.last_name
-FROM film
-INNER JOIN film_actor ON film.film_id = film_actor.film_id
-INNER JOIN actor ON film_actor.actor_id = actor.actor_id
-WHERE actor.last_name = 'Keitel';
+SELECT f.title, ac.first_name, ac.last_name
+FROM film as f
+JOIN film_actor as fa ON f.film_id =fa.film_id
+JOIN actor as ac ON fa.actor_id = ac.actor_id
+WHERE ac.last_name = 'Keitel'
+-- 2. Encontrar la cantidad de películas disponibles en cada tienda (mostrar id y ciudad de la tienda)
+
+-- 3. Listar las películas alquiladas por clientes y mostrar el título de la película junto con el nombre
+-- del cliente, incluso si un cliente no ha alquilado ninguna película
+SELECT SELECT cu.first_name, f.title
+FROM customer as cu
+LEFT JOIN rental as re ON cu.customer_id = re.customer_id
+LEFT JOIN inventory as inv ON re.inventory_id = inv.inventory_id
+LEFT JOIN film as f On inv.film_id = f.film_id
+
+-- 4. Selecciona el identicador y el nombre de las 10 categorías que contienen más películas en toda la
+-- colección.
+SELECT ca.category_id, ca.name, COUNT(*) as NumPelis
+FROM category as ca
+JOIN film_category as fc ON ca.category_id = fc.category_id
+JOIN film as fl ON fc.film_id = fl.film_id
+GROUP BY ca.category_id
+ORDER BY NumPelis DESC
+LIMIT 10;
+-- 5. Selecciona el título de las 5 películas que se han alquilado más veces, junto con el número total de
+-- veces que se ha alquilado cada una
+SELECT fl.title, COUNT(*) VecesAlquiladas
+FROM film as fl
+JOIN inventory as inv ON fl.film_id = inv.film_id
+JOIN rental as re ON inv.inventory_id = re.inventory_id
+GROUP BY fl.film_id
+ORDER BY VecesAlquiladas DESC
+LIMIT 5
+
+
+
 
 -- 22. Listar los actores que han trabajado en películas de categorías diferentes y mostrar el nombre de
 --la película junto con el nombre del actor.
