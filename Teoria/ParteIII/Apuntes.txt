@@ -1,0 +1,57 @@
+Tema 5
+
+Introducción:
+    Para garantizar la correcta ejecución y eficiencia de una base de datos. Se destaca que este proceso implica traducir el modelo conceptual al Sistema de Gestión de Bases de Datos (DBMS), lo cual afecta directamente su desempeño y confiabilidad.
+
+    Aspectos clave mencionados:
+    Traducción del modelo: Convertir el diseño conceptual en estructuras compatibles con el DBMS.
+    Organización de archivos e índices: Diseñar almacenamiento eficiente para optimizar el acceso y recuperación de datos.
+    Redundancia controlada: Manejar la duplicidad de datos para equilibrar coherencia y rendimiento.
+    Seguridad: Implementar medidas de control de acceso para proteger la integridad de los datos.
+    Transacciones: Garantizar consistencia y confiabilidad durante operaciones complejas.
+
+Traducción:
+    Concepto principal
+        Objetivo: Convertir el modelo conceptual de la base de datos en una estructura que pueda ser entendida y gestionada por un DBMS.
+    Pasos importantes:
+        Elección del DBMS:
+
+        -El sistema debe seleccionarse considerando características como:
+        -Componentes (procesador de consultas, motor de almacenamiento, etc.).
+        -Escalabilidad (vertical u horizontal).
+        -Seguridad, soporte y costos.
+
+        Componentes clave del DBMS:
+
+        -Transporte: Coordina la transferencia de datos entre la aplicación y la base de datos.
+        -Procesador de consultas:
+            Parser: Interpreta y valida las consultas.
+            Optimizador: Selecciona el plan más eficiente para ejecutar las consultas.
+            Motor de ejecución: Ejecuta la consulta y obtiene los resultados.
+        -Motor de almacenamiento: Gestiona la organización física de los datos en disco o memoria.
+
+    Tipos de DBMS:
+        Relacionales (RDBMS):
+
+        Organizan datos en tablas y relaciones.
+        Soporte para transacciones ACID.
+        Ejemplo: MySQL, PostgreSQL.
+
+        No Relacionales (NoSQL):
+
+        Mayor flexibilidad para datos no estructurados.
+        Ejemplo: MongoDB, Cassandra.
+
+        En Memoria:
+        Datos almacenados en memoria para acceso rápido.
+        Ejemplo: Redis, Memcached.
+
+    Motores de almacenamiento (ejemplo: MySQL):
+        InnoDB (por defecto): Transaccional, ACID, MVCC.
+        NDB: Para clústeres.
+        TokuDB: Optimizado para índices en SSD.
+        En PostgreSQL, un único motor configurable.
+
+    Escalabilidad:
+    Vertical (Scaling Up): Migrar a un sistema más potente.
+    Horizontal (Scaling Out): Distribuir la carga en múltiples nodos o servidores.
